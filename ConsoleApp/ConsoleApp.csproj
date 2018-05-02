@@ -4,15 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C4AEAD32-DB1E-4B9D-9A5B-CA8129FC6154}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OrderProject</RootNamespace>
-    <AssemblyName>OrderProject</AssemblyName>
+    <ProjectGuid>{7F4A905B-0EF0-4F6D-9995-3AF7BE9E11D0}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ConsoleApp</RootNamespace>
+    <AssemblyName>ConsoleApp</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +22,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -47,50 +48,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\CommentOnTheVisitsController.cs" />
-    <Compile Include="Controller\ContactsController.cs" />
-    <Compile Include="Controller\DiagnosticsController.cs" />
-    <Compile Include="Controller\FieldOptionsController.cs" />
-    <Compile Include="Controller\HairController.cs" />
-    <Compile Include="Controller\HairSizeSettingsController.cs" />
-    <Compile Include="Controller\ImagesController.cs" />
-    <Compile Include="Controller\LensesController.cs" />
-    <Compile Include="Controller\PatientsController.cs" />
-    <Compile Include="Controller\PicturesController.cs" />
-    <Compile Include="Controller\ReportFieldsController.cs" />
-    <Compile Include="Controller\ResearchesController.cs" />
-    <Compile Include="Controller\SettingsController.cs" />
-    <Compile Include="Controller\StatisticalSettingsController.cs" />
-    <Compile Include="Controller\UsersController.cs" />
-    <Compile Include="Controller\VisitsController.cs" />
-    <Compile Include="Model\ApplicationDbContext.cs" />
-    <Compile Include="Model\CommentOnTheVisit.cs" />
-    <Compile Include="Model\Contact.cs" />
-    <Compile Include="Model\Diagnostic.cs" />
-    <Compile Include="Model\FieldOption.cs" />
-    <Compile Include="Model\FieldType.cs" />
-    <Compile Include="Model\Gender.cs" />
-    <Compile Include="Model\Hair.cs" />
-    <Compile Include="Model\HairSizeSettings.cs" />
-    <Compile Include="Model\Image.cs" />
-    <Compile Include="Model\Lens.cs" />
-    <Compile Include="Model\Patient.cs" />
-    <Compile Include="Model\PatientStatus.cs" />
-    <Compile Include="Model\Picture.cs" />
-    <Compile Include="Model\ReportField.cs" />
-    <Compile Include="Model\Research.cs" />
-    <Compile Include="Model\ResearchType.cs" />
-    <Compile Include="Model\Setting.cs" />
-    <Compile Include="Model\StateOfTheResearch.cs" />
-    <Compile Include="Model\StatisticalSettings.cs" />
-    <Compile Include="Model\TypeOfComment.cs" />
-    <Compile Include="Model\User.cs" />
-    <Compile Include="Model\Visit.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OrderProject\OrderProject.csproj">
+      <Project>{C4AEAD32-DB1E-4B9D-9A5B-CA8129FC6154}</Project>
+      <Name>OrderProject</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

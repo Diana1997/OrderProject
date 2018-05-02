@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrderProject
+namespace OrderProject.Model
 {
-    public class Class1
+    public enum Gender
     {
+        Mail,
+        Femail
     }
 }
