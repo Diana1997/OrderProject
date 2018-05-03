@@ -8,25 +8,42 @@ using System.Threading.Tasks;
 
 namespace OrderProject.Controller
 {
-    public class PatientsController
+    public class PatientsController 
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
         public void Create(Patient patient)
         {
-            db.Patients.Add(patient);
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                db.Patients.Add(patient);
+                db.SaveChanges();
+            }
         }
         public void Edit(Patient patient)
         {
-            db.Entry(patient).State = EntityState.Modified;
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                db.Entry(patient).State = EntityState.Modified;
+                db.SaveChanges();
+            }
         }
         public void Delete(int id)
         {
-            Patient patient = db.Patients.Find(id);
-            db.Patients.Remove(patient);
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                Patient patient = db.Patients.Find(id);
+                db.Patients.Remove(patient);
+                db.SaveChanges();
+            }
+        }
+        public Patient Get(int id)
+        {
+            using (var db = new ApplicationDbContext())
+                return db.Patients.Include(p => p.Contact).Include(p => p.Image).First();
+        }
+        public IList<Patient> Get()
+        {
+            using (var db = new ApplicationDbContext())
+                return db.Patients.Include(p => p.Contact).Include(p => p.Image).ToList();
         }
     }
 }

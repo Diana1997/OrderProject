@@ -8,42 +8,42 @@ using System.Threading.Tasks;
 
 namespace OrderProject.Controller
 {
-    public class LensesController : IDisposable
+    public class LensesController 
     {
-        private ApplicationDbContext db;
-
-        public LensesController()
-        {
-            db = new ApplicationDbContext();
-        }
         public void Create(Lens lens)
         {
-            db.Lenses.Add(lens);
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                db.Lenses.Add(lens);
+                db.SaveChanges();
+            }
         }
         public void Edit(Lens lens)
         {
-            db.Entry(lens).State = EntityState.Modified;
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                db.Entry(lens).State = EntityState.Modified;
+                db.SaveChanges();
+            }
         }
         public void Delete(int id)
         {
-            Lens lens = db.Lenses.Find(id);
-            db.Lenses.Remove(lens);
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                Lens lens = db.Lenses.Find(id);
+                db.Lenses.Remove(lens);
+                db.SaveChanges();
+            }
         }
         public Lens Get(int id)
         {
-            Lens lens = db.Lenses.Find(id);
-            return lens;
+            using (var db = new ApplicationDbContext())
+                return db.Lenses.Find(id);
         }
         public IList<Lens> Get()
         {
-            return db.Lenses.ToList();
-        }
-        public void Dispose()
-        {
-            db.Dispose();
+            using (var db = new ApplicationDbContext())
+                return db.Lenses.ToList();
         }
     }
 }

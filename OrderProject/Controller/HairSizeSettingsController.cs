@@ -8,45 +8,44 @@ using System.Threading.Tasks;
 
 namespace OrderProject.Controller
 {
-    public class HairSizeSettingsController : IDisposable
+    public class HairSizeSettingsController
     {
-        private ApplicationDbContext db;
-
-        public HairSizeSettingsController()
-        {
-            db= new ApplicationDbContext();
-        }
         public void Create(HairSizeSettings hairSizeSettings)
         {
-            db.HairSizeSettings.Add(hairSizeSettings);
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                db.HairSizeSettings.Add(hairSizeSettings);
+                db.SaveChanges();
+            }
         }
 
         public void Edit(HairSizeSettings hairSizeSettings)
         {
-            db.Entry(hairSizeSettings).State = EntityState.Modified;
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                db.Entry(hairSizeSettings).State = EntityState.Modified;
+                db.SaveChanges();
+            }
         }
 
         public void Delete(int id)
         {
-            HairSizeSettings hairSizeSettings = db.HairSizeSettings.Find(id);
-            db.HairSizeSettings.Remove(hairSizeSettings);
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                HairSizeSettings hairSizeSettings = db.HairSizeSettings.Find(id);
+                db.HairSizeSettings.Remove(hairSizeSettings);
+                db.SaveChanges();
+            }
         }
         public HairSizeSettings Get(int id)
         {
-            HairSizeSettings hairSizeSettings = db.HairSizeSettings.Find(id);
-            return hairSizeSettings;
+            using (var db = new ApplicationDbContext())
+                return db.HairSizeSettings.Find(id);
         }
         public IList<HairSizeSettings> Get()
         {
-            return db.HairSizeSettings.ToList();
-        }
-
-        public void Dispose()
-        {
-            db.Dispose();
+            using (var db = new ApplicationDbContext())
+                return db.HairSizeSettings.ToList();
         }
     }
 }

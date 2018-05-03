@@ -8,42 +8,44 @@ using System.Threading.Tasks;
 
 namespace OrderProject.Controller
 {
-    public class ImagesController : IDisposable
+    public class ImagesController
     {
-        private ApplicationDbContext db;
-        public ImagesController()
-        {
-            db = new ApplicationDbContext();
-        }
+     
         public void Create(Image image)
         {
-            db.Images.Add(image);
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                db.Images.Add(image);
+                db.SaveChanges();
+            }
         }
         public void Edit(Image image)
         {
-            db.Entry(image).State = EntityState.Modified;
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                db.Entry(image).State = EntityState.Modified;
+                db.SaveChanges();
+            }
         }
         public void Delete(int id)
         {
-            Image image = db.Images.Find(id);
-            db.Images.Remove(image);
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                Image image = db.Images.Find(id);
+                db.Images.Remove(image);
+                db.SaveChanges();
+            }
         }
 
         public Image Get(int id)
         {
-            Image image = db.Images.Find(id);
-            return image;
+            using (var db = new ApplicationDbContext())
+                return db.Images.Find(id);
         }
         public IList<Image> Get()
         {
-            return db.Images.ToList();
-        }
-        public void Dispose()
-        {
-            db.Dispose();
+            using (var db = new ApplicationDbContext())
+                return db.Images.ToList();
         }
     }
 }

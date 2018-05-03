@@ -7,41 +7,46 @@ using System.Threading.Tasks;
 
 namespace OrderProject.Controller
 {
-    public class ContactsController : IDisposable
+    public class ContactsController
     {
-        private ApplicationDbContext db;
-        public ContactsController()
-        {
-            db = new ApplicationDbContext();
-        }
         public void Create(Contact contact)
         {
-            db.Contacts.Add(contact);
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                db.Contacts.Add(contact);
+                db.SaveChanges();
+            }
         }
         public void Edit(Contact contact)
         {
-            db.Contacts.Add(contact);
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                db.Contacts.Add(contact);
+                db.SaveChanges();
+            }
         }
         public void Delete(int id)
         {
-            Contact contact = db.Contacts.Find(id);
-            db.Contacts.Remove(contact);
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                Contact contact = db.Contacts.Find(id);
+                db.Contacts.Remove(contact);
+                db.SaveChanges();
+            }
         }
         public Contact Get(int id)
         {
-            Contact contact = db.Contacts.Find(id);
-            return contact;
+            using (var db = new ApplicationDbContext())
+            {
+                Contact contact = db.Contacts.Find(id);
+                return contact;
+            }
         }
         public IList<Contact> Get()
         {
-            return db.Contacts.ToList();
-        }
-        public void Dispose()
-        {
-            db.Dispose();
+            using (var db = new ApplicationDbContext())
+                return db.Contacts.ToList();
+
         }
     }
 }

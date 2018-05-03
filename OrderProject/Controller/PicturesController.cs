@@ -8,13 +8,8 @@ using System.Threading.Tasks;
 
 namespace OrderProject.Controller
 {
-    public class PicturesController : IDisposable
+    public class PicturesController 
     {
-        private ApplicationDbContext db;
-        public PicturesController()
-        {
-            db = new ApplicationDbContext();
-        }
         public void Create(Picture picture)
         {
             db.Pictures.Add(picture);
@@ -33,16 +28,13 @@ namespace OrderProject.Controller
         }
         public Picture Get(int id)
         {
-            Picture picture = db.Pictures.Find(id);
-            return picture;
+            using (var db = new ApplicationDbContext())
+               return db.Pictures.Find(id);
         }
         public IList<Picture> Get()
         {
-            return db.Pictures.ToList();
-        }
-        public void Dispose()
-        {
-            db.Dispose();
+            using (var db = new ApplicationDbContext())
+                return db.Pictures.ToList();
         }
     }
 }

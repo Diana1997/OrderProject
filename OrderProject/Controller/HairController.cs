@@ -10,40 +10,40 @@ namespace OrderProject.Controller
 {
     public class HairController : IDisposable
     {
-        private ApplicationDbContext db;
-
-        public HairController()
-        {
-            db = new ApplicationDbContext();
-        }
         public void Create(Hair hair)
         {
-            db.Hairs.Add(hair);
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                db.Hairs.Add(hair);
+                db.SaveChanges();
+            }
         }
         public void Edit(Hair hair)
         {
-            db.Entry(hair).State = EntityState.Modified;
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                db.Entry(hair).State = EntityState.Modified;
+                db.SaveChanges();
+            }
         }
         public void Delete(int id)
         {
-            Hair hair = db.Hairs.Find(id);
-            db.Hairs.Remove(hair);
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                Hair hair = db.Hairs.Find(id);
+                db.Hairs.Remove(hair);
+                db.SaveChanges();
+            }
         }
         public Hair Get(int id)
         {
-            Hair hair = db.Hairs.Find(id);
-            return hair;
+            using (var db = new ApplicationDbContext())
+                return db.Hairs.Find(id);
         }
         public IList<Hair> Get()
         {
-            return db.Hairs.ToList();
-        }
-        public void Dispose()
-        {
-            db.Dispose();
+            using (var db = new ApplicationDbContext())
+                return db.Hairs.ToList();
         }
     }
 }

@@ -8,42 +8,44 @@ using System.Threading.Tasks;
 
 namespace OrderProject.Controller
 {
-    public class FieldOptionsController : IDisposable
+    public class FieldOptionsController
     {
-        private ApplicationDbContext db;
-        public FieldOptionsController()
-        {
-            db = new ApplicationDbContext();
-        }
+
         public void Create(FieldOption fieldOption)
         {
-            db.FieldOptions.Add(fieldOption);
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                db.FieldOptions.Add(fieldOption);
+                db.SaveChanges();
+            }
         }
         public void Edit(FieldOption fieldOption)
         {
-            db.Entry(fieldOption).State = EntityState.Modified;
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                db.Entry(fieldOption).State = EntityState.Modified;
+                db.SaveChanges();
+            }
         }
         public void Delete(int id)
         {
-            FieldOption fieldOption = db.FieldOptions.Find(id);
-            db.FieldOptions.Remove(fieldOption);
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                FieldOption fieldOption = db.FieldOptions.Find(id);
+                db.FieldOptions.Remove(fieldOption);
+                db.SaveChanges();
+            }
         }
 
         public FieldOption Get(int id)
         {
-            FieldOption fieldOption = db.FieldOptions.Find(id);
-            return fieldOption;
+            using (var db = new ApplicationDbContext())
+              return db.FieldOptions.Find(id);
         }
         public IList<FieldOption> Get()
         {
-            return db.FieldOptions.ToList();
-        }
-        public void Dispose()
-        {
-            db.Dispose();
+            using (var db = new ApplicationDbContext())
+                return db.FieldOptions.ToList();
         }
     }
 }

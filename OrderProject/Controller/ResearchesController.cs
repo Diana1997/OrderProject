@@ -8,25 +8,32 @@ using System.Threading.Tasks;
 
 namespace OrderProject.Controller
 {
-    public class ResearchesController
-    {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
+    public class ResearchesController 
+    { 
         public void Create(Research research)
         {
-            db.Researchs.Add(research);
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                db.Researchs.Add(research);
+                db.SaveChanges();
+            }
         }
         public void Edit(Research research)
         {
-            db.Entry(research).State = EntityState.Modified;
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                db.Entry(research).State = EntityState.Modified;
+                db.SaveChanges();
+            }
         }
         public void Delete(int id)
         {
-            Research research = db.Researchs.Find(id);
-            db.Researchs.Remove(research);
-            db.SaveChanges();
+            using (var db = new ApplicationDbContext())
+            {
+                Research research = db.Researchs.Find(id);
+                db.Researchs.Remove(research);
+                db.SaveChanges();
+            }
         }
     }
 }
