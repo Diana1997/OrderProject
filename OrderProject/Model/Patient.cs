@@ -24,7 +24,7 @@ namespace OrderProject.Model
         public DateTime DateTimeNextVisit { set; get; }
         public Contact Contact { set; get; }
         public Image Image { set; get; }
-        public ICollection<Visit> Visits { set; get; }
+        public virtual ICollection<Visit> Visits { set; get; }
         public Patient()
         {
             Visits = new List<Visit>();

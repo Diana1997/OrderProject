@@ -21,7 +21,7 @@ namespace OrderProject.Model
         [Required]
         public int? ResearchID { set; get; }
         public User User { set; get; }
-        public Patient Patient { set; get; }
+        public virtual Patient Patient { set; get; }
         public Research Research { set; get; }
     }
 }
