@@ -14,7 +14,7 @@ namespace OrderProject.Model
         public int X2 { set; get; }
         public int Y1 { set; get; }
         public int Y2 { set; get; }
-        public ICollection<Research> Researchs { set; get; }
+        public  ICollection<Research> Researchs { set; get; }
         public Hair()
         {
             Researchs = new List<Research>();

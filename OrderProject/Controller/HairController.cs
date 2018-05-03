@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OrderProject.Controller
 {
-    public class HairController : IDisposable
+    public class HairController 
     {
         public void Create(Hair hair)
         {

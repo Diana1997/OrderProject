@@ -63,6 +63,11 @@
     <Compile Include="Controller\StatisticalSettingsController.cs" />
     <Compile Include="Controller\UsersController.cs" />
     <Compile Include="Controller\VisitsController.cs" />
+    <Compile Include="Migrations\201805030809151_InitialCreate.cs" />
+    <Compile Include="Migrations\201805030809151_InitialCreate.Designer.cs">
+      <DependentUpon>201805030809151_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ApplicationDbContext.cs" />
     <Compile Include="Model\CommentOnTheVisit.cs" />
     <Compile Include="Model\Contact.cs" />
@@ -91,6 +96,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201805030809151_InitialCreate.resx">
+      <DependentUpon>201805030809151_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

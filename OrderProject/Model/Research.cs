@@ -32,7 +32,7 @@ namespace OrderProject.Model
         [Required]
         public int? LensID { set; get; }
         public Image Image { set; get; }
-        public Hair Hair { set; get; }
+        public  Hair Hair { set; get; }
         public Diagnostic Diagnostic { set; get; }
         public Setting Setting { set; get; }
         public Lens Lens { set; get; }

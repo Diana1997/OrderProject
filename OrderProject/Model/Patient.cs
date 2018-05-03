@@ -21,7 +21,7 @@ namespace OrderProject.Model
         public DateTime CreationDate { set; get; }
         public string Comment { set; get; }
         public int? ImageID { set; get; }
-        public DateTime DateTimeNextVisit { set; get; }
+        public DateTime? DateTimeNextVisit { set; get; }
         public Contact Contact { set; get; }
         public Image Image { set; get; }
         public virtual ICollection<Visit> Visits { set; get; }
