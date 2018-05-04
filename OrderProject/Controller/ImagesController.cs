@@ -10,42 +10,39 @@ namespace OrderProject.Controller
 {
     public class ImagesController
     {
-     
-        public void Create(Image image)
+        ApplicationDbContext db { get; set; }
+
+        public ImagesController(ApplicationDbContext dbContext)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.Images.Add(image);
-                db.SaveChanges();
-            }
+            db = dbContext;
+        }
+
+        public int Create(Image image)
+        {
+
+            db.Images.Add(image);
+            db.SaveChanges();
+            return image.ImageID;
         }
         public void Edit(Image image)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.Entry(image).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+            db.Entry(image).State = EntityState.Modified;
+            db.SaveChanges();
         }
         public void Delete(int id)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                Image image = db.Images.Find(id);
-                db.Images.Remove(image);
-                db.SaveChanges();
-            }
+            Image image = db.Images.Find(id);
+            db.Images.Remove(image);
+            db.SaveChanges();
         }
 
         public Image Get(int id)
         {
-            using (var db = new ApplicationDbContext())
-                return db.Images.Find(id);
+            return db.Images.Find(id);
         }
         public IList<Image> Get()
         {
-            using (var db = new ApplicationDbContext())
-                return db.Images.ToList();
+            return db.Images.ToList();
         }
     }
 }

@@ -10,42 +10,38 @@ namespace OrderProject.Controller
 {
     public class HairSizeSettingsController
     {
-        public void Create(HairSizeSettings hairSizeSettings)
+        ApplicationDbContext db { get; set; }
+
+        public HairSizeSettingsController(ApplicationDbContext dbContext)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.HairSizeSettings.Add(hairSizeSettings);
-                db.SaveChanges();
-            }
+            db = dbContext;
+        }
+        public int Create(HairSizeSettings hairSizeSettings)
+        {
+            db.HairSizeSettings.Add(hairSizeSettings);
+            db.SaveChanges();
+            return hairSizeSettings.HairSizeSettingsID;
         }
 
         public void Edit(HairSizeSettings hairSizeSettings)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.Entry(hairSizeSettings).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+            db.Entry(hairSizeSettings).State = EntityState.Modified;
+            db.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                HairSizeSettings hairSizeSettings = db.HairSizeSettings.Find(id);
-                db.HairSizeSettings.Remove(hairSizeSettings);
-                db.SaveChanges();
-            }
+            HairSizeSettings hairSizeSettings = db.HairSizeSettings.Find(id);
+            db.HairSizeSettings.Remove(hairSizeSettings);
+            db.SaveChanges();
         }
         public HairSizeSettings Get(int id)
         {
-            using (var db = new ApplicationDbContext())
-                return db.HairSizeSettings.Find(id);
+            return db.HairSizeSettings.Find(id);
         }
         public IList<HairSizeSettings> Get()
         {
-            using (var db = new ApplicationDbContext())
-                return db.HairSizeSettings.ToList();
+            return db.HairSizeSettings.ToList();
         }
     }
 }

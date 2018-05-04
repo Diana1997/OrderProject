@@ -8,42 +8,38 @@ using System.Threading.Tasks;
 
 namespace OrderProject.Controller
 {
-    public class ReportFieldsController 
+    public class ReportFieldsController
     {
-        public void Create(ReportField reportField)
+        ApplicationDbContext db { get; set; }
+
+        public ReportFieldsController(ApplicationDbContext dbContext)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.ReportFields.Add(reportField);
-                db.SaveChanges();
-            }
+            db = dbContext;
+        }
+        public int Create(ReportField reportField)
+        {
+            db.ReportFields.Add(reportField);
+            db.SaveChanges();
+            return reportField.ReportFieldID;
         }
         public void Edit(ReportField reportField)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.Entry(reportField).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+            db.Entry(reportField).State = EntityState.Modified;
+            db.SaveChanges();
         }
         public void Delete(int id)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                ReportField reportField = db.ReportFields.Find(id);
-                db.ReportFields.Remove(reportField);
-                db.SaveChanges();
-            }
+            ReportField reportField = db.ReportFields.Find(id);
+            db.ReportFields.Remove(reportField);
+            db.SaveChanges();
         }
         public ReportField Get(int id)
         {
-            using (var db = new ApplicationDbContext())
-                return db.ReportFields.Include(r => r.FieldOption).First();
+            return db.ReportFields.Include(r => r.FieldOption).First();
         }
         public IList<ReportField> Get()
         {
-            using (var db = new ApplicationDbContext())
-                return db.ReportFields.Include(r => r.FieldOption).ToList();
+            return db.ReportFields.Include(r => r.FieldOption).ToList();
         }
     }
 }

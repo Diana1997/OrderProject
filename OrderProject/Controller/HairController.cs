@@ -8,42 +8,38 @@ using System.Threading.Tasks;
 
 namespace OrderProject.Controller
 {
-    public class HairController 
+    public class HairController
     {
-        public void Create(Hair hair)
+        ApplicationDbContext db { get; set; }
+
+        public HairController(ApplicationDbContext dbContext)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.Hairs.Add(hair);
-                db.SaveChanges();
-            }
+            db = dbContext;
+        }
+        public int Create(Hair hair)
+        {
+            db.Hairs.Add(hair);
+            db.SaveChanges();
+            return hair.HairID;
         }
         public void Edit(Hair hair)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.Entry(hair).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+            db.Entry(hair).State = EntityState.Modified;
+            db.SaveChanges();
         }
         public void Delete(int id)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                Hair hair = db.Hairs.Find(id);
-                db.Hairs.Remove(hair);
-                db.SaveChanges();
-            }
+            Hair hair = db.Hairs.Find(id);
+            db.Hairs.Remove(hair);
+            db.SaveChanges();
         }
         public Hair Get(int id)
         {
-            using (var db = new ApplicationDbContext())
-                return db.Hairs.Find(id);
+            return db.Hairs.Find(id);
         }
         public IList<Hair> Get()
         {
-            using (var db = new ApplicationDbContext())
-                return db.Hairs.ToList();
+            return db.Hairs.ToList();
         }
     }
 }

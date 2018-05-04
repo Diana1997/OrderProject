@@ -9,49 +9,44 @@ using System.Threading.Tasks;
 
 namespace OrderProject.Controller
 {
-    
-    public class CommentOnTheVisitsController 
-    {
 
-        public void Create(CommentOnTheVisit commentOnTheVisit)
+    public class CommentOnTheVisitsController
+    {
+        ApplicationDbContext db { get; set; }
+
+        public CommentOnTheVisitsController(ApplicationDbContext dbContext)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.CommentOnTheVisits.Add(commentOnTheVisit);
-                db.SaveChanges();
-            }
+            db = dbContext;
+        }
+        public int  Create(CommentOnTheVisit commentOnTheVisit)
+        {
+            db.CommentOnTheVisits.Add(commentOnTheVisit);
+            db.SaveChanges();
+            return commentOnTheVisit.CommentOnTheVisitID;
         }
         public void Edit(CommentOnTheVisit commentOnTheVisit)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.Entry(commentOnTheVisit).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+
+            db.Entry(commentOnTheVisit).State = EntityState.Modified;
+            db.SaveChanges();
         }
         public void Delete(int id)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                CommentOnTheVisit commentOnTheVisit = db.CommentOnTheVisits.Find(id);
-                db.CommentOnTheVisits.Remove(commentOnTheVisit);
-                db.SaveChanges();
-            }
+
+            CommentOnTheVisit commentOnTheVisit = db.CommentOnTheVisits.Find(id);
+            db.CommentOnTheVisits.Remove(commentOnTheVisit);
+            db.SaveChanges();
         }
         public CommentOnTheVisit Get(int id)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                CommentOnTheVisit commentOnTheVisit = db.CommentOnTheVisits.Find(id);
-                return commentOnTheVisit;
-            }
+
+            CommentOnTheVisit commentOnTheVisit = db.CommentOnTheVisits.Find(id);
+            return commentOnTheVisit;
         }
         public IList<CommentOnTheVisit> Get()
         {
-            using (var db = new ApplicationDbContext())
-            {
-                return db.CommentOnTheVisits.ToList();
-            }
+
+            return db.CommentOnTheVisits.ToList();
         }
     }
 }

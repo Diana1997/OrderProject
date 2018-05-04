@@ -8,42 +8,38 @@ using System.Threading.Tasks;
 
 namespace OrderProject.Controller
 {
-    public class LensesController 
+    public class LensesController
     {
-        public void Create(Lens lens)
+        ApplicationDbContext db { get; set; }
+
+        public LensesController(ApplicationDbContext dbContext)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.Lenses.Add(lens);
-                db.SaveChanges();
-            }
+            db = dbContext;
+        }
+        public int Create(Lens lens)
+        {
+            db.Lenses.Add(lens);
+            db.SaveChanges();
+            return lens.LensID;
         }
         public void Edit(Lens lens)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.Entry(lens).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+            db.Entry(lens).State = EntityState.Modified;
+            db.SaveChanges();
         }
         public void Delete(int id)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                Lens lens = db.Lenses.Find(id);
-                db.Lenses.Remove(lens);
-                db.SaveChanges();
-            }
+            Lens lens = db.Lenses.Find(id);
+            db.Lenses.Remove(lens);
+            db.SaveChanges();
         }
         public Lens Get(int id)
         {
-            using (var db = new ApplicationDbContext())
-                return db.Lenses.Find(id);
+            return db.Lenses.Find(id);
         }
         public IList<Lens> Get()
         {
-            using (var db = new ApplicationDbContext())
-                return db.Lenses.ToList();
+            return db.Lenses.ToList();
         }
     }
 }

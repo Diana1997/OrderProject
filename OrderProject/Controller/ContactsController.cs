@@ -1,6 +1,7 @@
 ﻿using OrderProject.Model;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,44 +10,37 @@ namespace OrderProject.Controller
 {
     public class ContactsController
     {
-        public void Create(Contact contact)
+        ApplicationDbContext db { get; set; }
+
+        public ContactsController(ApplicationDbContext dbContext)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.Contacts.Add(contact);
-                db.SaveChanges();
-            }
+            db = dbContext;
+        }
+        public int Create(Contact contact)
+        {
+            db.Contacts.Add(contact);
+            db.SaveChanges();
+            return contact.ContactID;
         }
         public void Edit(Contact contact)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.Contacts.Add(contact);
-                db.SaveChanges();
-            }
+            db.Entry(contact).State = EntityState.Modified;
+            db.SaveChanges();
         }
         public void Delete(int id)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                Contact contact = db.Contacts.Find(id);
-                db.Contacts.Remove(contact);
-                db.SaveChanges();
-            }
+            Contact contact = db.Contacts.Find(id);
+            db.Contacts.Remove(contact);
+            db.SaveChanges();
         }
         public Contact Get(int id)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                Contact contact = db.Contacts.Find(id);
-                return contact;
-            }
+            Contact contact = db.Contacts.Find(id);
+            return contact;
         }
         public IList<Contact> Get()
         {
-            using (var db = new ApplicationDbContext())
-                return db.Contacts.ToList();
-
+            return db.Contacts.ToList();
         }
     }
 }

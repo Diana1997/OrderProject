@@ -8,42 +8,40 @@ using System.Threading.Tasks;
 
 namespace OrderProject.Controller
 {
-    public class PicturesController 
+    public class PicturesController
     {
-        public void Create(Picture picture)
+        ApplicationDbContext db { get; set; }
+
+        public PicturesController(ApplicationDbContext dbContext)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.Pictures.Add(picture);
-                db.SaveChanges();
-            }
+            db = dbContext;
+        }
+        public int Create(Picture picture)
+        {
+            db.Pictures.Add(picture);
+            db.SaveChanges();
+            return picture.PictureID;
         }
         public void Edit(Picture picture)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.Entry(picture).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+
+            db.Entry(picture).State = EntityState.Modified;
+            db.SaveChanges();
         }
         public void Delete(int id)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                Picture picture = db.Pictures.Find(id);
-                db.Pictures.Remove(picture);
-                db.SaveChanges();
-            }
+
+            Picture picture = db.Pictures.Find(id);
+            db.Pictures.Remove(picture);
+            db.SaveChanges();
         }
         public Picture Get(int id)
         {
-            using (var db = new ApplicationDbContext())
-               return db.Pictures.Find(id);
+            return db.Pictures.Find(id);
         }
         public IList<Picture> Get()
         {
-            using (var db = new ApplicationDbContext())
-                return db.Pictures.ToList();
+            return db.Pictures.ToList();
         }
     }
 }

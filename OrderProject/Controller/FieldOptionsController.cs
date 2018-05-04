@@ -10,42 +10,39 @@ namespace OrderProject.Controller
 {
     public class FieldOptionsController
     {
+        ApplicationDbContext db { get; set; }
 
-        public void Create(FieldOption fieldOption)
+        public FieldOptionsController(ApplicationDbContext dbContext)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.FieldOptions.Add(fieldOption);
-                db.SaveChanges();
-            }
+            db = dbContext;
+        }
+        public int Create(FieldOption fieldOption)
+        {
+            db.FieldOptions.Add(fieldOption);
+            db.SaveChanges();
+            return fieldOption.FieldOptionID;
         }
         public void Edit(FieldOption fieldOption)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.Entry(fieldOption).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+            db.Entry(fieldOption).State = EntityState.Modified;
+            db.SaveChanges();
         }
         public void Delete(int id)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                FieldOption fieldOption = db.FieldOptions.Find(id);
-                db.FieldOptions.Remove(fieldOption);
-                db.SaveChanges();
-            }
+
+            FieldOption fieldOption = db.FieldOptions.Find(id);
+            db.FieldOptions.Remove(fieldOption);
+            db.SaveChanges();
+
         }
 
         public FieldOption Get(int id)
         {
-            using (var db = new ApplicationDbContext())
-              return db.FieldOptions.Find(id);
+            return db.FieldOptions.Find(id);
         }
         public IList<FieldOption> Get()
         {
-            using (var db = new ApplicationDbContext())
-                return db.FieldOptions.ToList();
+            return db.FieldOptions.ToList();
         }
     }
 }

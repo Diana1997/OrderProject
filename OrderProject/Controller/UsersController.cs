@@ -8,42 +8,38 @@ using System.Threading.Tasks;
 
 namespace OrderProject.Controller
 {
-    public class UsersController 
+    public class UsersController
     {
-        public void Create(User user)
+        ApplicationDbContext db { get; set; }
+
+        public UsersController(ApplicationDbContext dbContext)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.Users.Add(user);
-                db.SaveChanges();
-            }
+            db = dbContext;
+        }
+        public int Create(User user)
+        {
+            db.Users.Add(user);
+            db.SaveChanges();
+            return user.UserID;
         }
         public void Edit(User user)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+            db.Entry(user).State = EntityState.Modified;
+            db.SaveChanges();
         }
         public void Delete(int id)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                User user = db.Users.Find(id);
-                db.Users.Remove(user);
-                db.SaveChanges();
-            }
+            User user = db.Users.Find(id);
+            db.Users.Remove(user);
+            db.SaveChanges();
         }
         public User Get(int id)
         {
-            using (var db = new ApplicationDbContext())
-                return db.Users.Include(u => u.Contact).Include(u => u.Diagnostic).First();
+            return db.Users.Include(u => u.Contact).Include(u => u.Diagnostic).First();
         }
         public IList<User> Get()
         {
-            using (var db = new ApplicationDbContext())
-                return db.Users.Include(u => u.Contact).Include(u => u.Diagnostic).ToList();
+            return db.Users.Include(u => u.Contact).Include(u => u.Diagnostic).ToList();
         }
     }
 }

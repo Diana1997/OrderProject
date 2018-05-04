@@ -10,7 +10,6 @@ namespace OrderProject.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "OrderProject.Model.ApplicationDbContext";
         }
 
         protected override void Seed(OrderProject.Model.ApplicationDbContext context)

@@ -10,40 +10,36 @@ namespace OrderProject.Controller
 {
     public class StatisticalSettingsController
     {
-        public void Create(StatisticalSettings statisticalSettings)
+        ApplicationDbContext db { get; set; }
+
+        public StatisticalSettingsController(ApplicationDbContext dbContext)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.StatisticalSettings.Add(statisticalSettings);
-                db.SaveChanges();
-            }
+            db = dbContext;
+        }
+        public int Create(StatisticalSettings statisticalSettings)
+        {
+            db.StatisticalSettings.Add(statisticalSettings);
+            db.SaveChanges();
+            return statisticalSettings.StatisticalSettingsID;
         }
         public void Edit(StatisticalSettings statisticalSettings)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.Entry(statisticalSettings).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+            db.Entry(statisticalSettings).State = EntityState.Modified;
+            db.SaveChanges();
         }
         public void Delete(int id)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                StatisticalSettings statisticalSettings = db.StatisticalSettings.Find(id);
-                db.StatisticalSettings.Remove(statisticalSettings);
-                db.SaveChanges();
-            }
+            StatisticalSettings statisticalSettings = db.StatisticalSettings.Find(id);
+            db.StatisticalSettings.Remove(statisticalSettings);
+            db.SaveChanges();
         }
         public StatisticalSettings Get(int id)
         {
-            using (var db = new ApplicationDbContext())
-                return db.StatisticalSettings.Find(id);
+            return db.StatisticalSettings.Find(id);
         }
         public IList<StatisticalSettings> Get()
         {
-            using (var db = new ApplicationDbContext())
-                return db.StatisticalSettings.ToList();
+            return db.StatisticalSettings.ToList();
         }
     }
 }

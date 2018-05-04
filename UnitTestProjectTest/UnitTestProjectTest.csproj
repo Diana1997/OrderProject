@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F5E957BC-37DA-429E-8D6F-94DDDE85F811}</ProjectGuid>
+    <ProjectGuid>{0618D347-5C6B-486D-AB30-AC91C75306C6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTestProject1</RootNamespace>
-    <AssemblyName>UnitTestProject1</AssemblyName>
+    <RootNamespace>UnitTestProjectTest</RootNamespace>
+    <AssemblyName>UnitTestProjectTest</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -55,23 +55,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContactTest.cs" />
-    <Compile Include="DiagnosticTest.cs" />
-    <Compile Include="FieldOptionTest.cs" />
-    <Compile Include="HairSizeSettingTest.cs" />
     <Compile Include="HairTest.cs" />
-    <Compile Include="CommentOnTheVisitsControllerTest.cs" />
-    <Compile Include="ImageTest.cs" />
-    <Compile Include="LensTest.cs" />
     <Compile Include="PatientTest.cs" />
-    <Compile Include="PictureTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReportFieldTest.cs" />
-    <Compile Include="ResearchTest.cs" />
-    <Compile Include="SettingTest.cs" />
-    <Compile Include="StatisticalSettingsTest.cs" />
-    <Compile Include="UserTest.cs" />
-    <Compile Include="VisitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -79,7 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OrderProject\OrderProject.csproj">
-      <Project>{c4aead32-db1e-4b9d-9a5b-ca8129fc6154}</Project>
+      <Project>{C4AEAD32-DB1E-4B9D-9A5B-CA8129FC6154}</Project>
       <Name>OrderProject</Name>
     </ProjectReference>
   </ItemGroup>

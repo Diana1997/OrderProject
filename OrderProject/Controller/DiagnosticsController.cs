@@ -10,41 +10,41 @@ namespace OrderProject.Controller
 {
     public class DiagnosticsController
     {
-        public void Create(Diagnostic diagnostic)
+        ApplicationDbContext db { get; set; }
+
+        public DiagnosticsController(ApplicationDbContext dbContext)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.Diagnostics.Add(diagnostic);
-                db.SaveChanges();
-            }
+            db = dbContext;
+        }
+        public int Create(Diagnostic diagnostic)
+        {
+            db.Diagnostics.Add(diagnostic);
+            db.SaveChanges();
+            return diagnostic.DiagnosticID;
         }
         public void Edit(Diagnostic diagnostic)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                db.Entry(diagnostic).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+
+            db.Entry(diagnostic).State = EntityState.Modified;
+            db.SaveChanges();
+
         }
         public void Delete(int id)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                Diagnostic diagnostic = db.Diagnostics.Find(id);
-                db.Diagnostics.Remove(diagnostic);
-                db.SaveChanges();
-            }
+
+            Diagnostic diagnostic = db.Diagnostics.Find(id);
+            db.Diagnostics.Remove(diagnostic);
+            db.SaveChanges();
+
         }
         public Diagnostic Get(int id)
         {
-            using (var db = new ApplicationDbContext())
-                return db.Diagnostics.Find(id);
+            return db.Diagnostics.Find(id);
 
         }
         public IList<Diagnostic> Get()
         {
-            using (var db = new ApplicationDbContext())
-                return db.Diagnostics.ToList();
+            return db.Diagnostics.ToList();
         }
     }
 }
