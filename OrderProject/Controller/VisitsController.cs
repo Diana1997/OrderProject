@@ -35,7 +35,7 @@ namespace OrderProject.Controller
         }
         public Visit Get(int id)
         {
-            return db.Visits.Include(v => v.Patient).Include(v => v.Research).Include(v => v.User).First();
+            return db.Visits.Include(v => v.Patient).Include(v => v.Research).Include(v => v.User).FirstOrDefault(x => x.VisitID == id);
         }
         public IList<Visit> Get()
         {

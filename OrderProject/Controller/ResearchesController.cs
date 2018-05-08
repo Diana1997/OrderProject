@@ -33,5 +33,10 @@ namespace OrderProject.Controller
             db.Researchs.Remove(research);
             db.SaveChanges();
         }
+
+        public Research Get(int id)
+        {
+            return db.Researchs.Find(id);
+        }
     }
 }

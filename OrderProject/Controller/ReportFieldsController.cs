@@ -35,7 +35,7 @@ namespace OrderProject.Controller
         }
         public ReportField Get(int id)
         {
-            return db.ReportFields.Include(r => r.FieldOption).First();
+            return db.ReportFields.Include(r => r.FieldOption).FirstOrDefault(x => x.ReportFieldID == id);
         }
         public IList<ReportField> Get()
         {

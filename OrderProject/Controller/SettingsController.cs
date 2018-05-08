@@ -36,7 +36,7 @@ namespace OrderProject.Controller
 
         public Setting Get(int id)
         {
-            return db.Settings.Include(s => s.HairSizeSettings).Include(s => s.StatisticalSettings).First();
+            return db.Settings.Include(s => s.HairSizeSettings).Include(s => s.StatisticalSettings).FirstOrDefault( x => x.SettingsID == id);
         }
         public IList<Setting> Get()
         {

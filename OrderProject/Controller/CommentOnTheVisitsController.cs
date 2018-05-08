@@ -39,13 +39,10 @@ namespace OrderProject.Controller
         }
         public CommentOnTheVisit Get(int id)
         {
-
-            CommentOnTheVisit commentOnTheVisit = db.CommentOnTheVisits.Find(id);
-            return commentOnTheVisit;
+           return db.CommentOnTheVisits.Find(id);
         }
         public IList<CommentOnTheVisit> Get()
         {
-
             return db.CommentOnTheVisits.ToList();
         }
     }

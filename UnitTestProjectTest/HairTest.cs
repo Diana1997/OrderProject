@@ -12,11 +12,6 @@ namespace UnitTestProjectTest
     [TestClass]
     public class HairTest
     {
-        [TestInitialize]
-        public void Init()
-        {
-
-        }
         [TestMethod]
         public void HairTest1()
         {
@@ -38,6 +33,42 @@ namespace UnitTestProjectTest
                 var hairRes = ctrl.Get(id);
                 Assert.IsNotNull(hair);
                 Assert.AreEqual(1, hairRes.X1);
+                Assert.AreEqual(1, hairRes.X2);
+                Assert.AreEqual(1, hairRes.Y1);
+                Assert.AreEqual(1, hairRes.Y2);
+            }
+
+            using (var db = new ApplicationDbContext())
+            {
+                var ctrl = new HairController(db);
+                hair = new Hair()
+                {
+                    HairID = id,
+                    Width = 1,
+                    X1 = 2,
+                    X2 = 1,
+                    Y1 = 1,
+                    Y2 = 1,
+                };
+                ctrl.Edit(hair);
+                var hairRes  = ctrl.Get(id);
+                Assert.IsNotNull(hair);
+                Assert.AreEqual(2, hairRes.X1);
+                Assert.AreEqual(1, hairRes.X2);
+                Assert.AreEqual(1, hairRes.Y1);
+                Assert.AreEqual(1, hairRes.Y2);
+            }
+
+            using (var db = new ApplicationDbContext())
+            {
+                var ctrl = new HairController(db);
+
+                ctrl.Delete(hair.HairID);
+
+                // check results
+                var hairRes = ctrl.Get(id);
+
+                Assert.IsNull(hairRes);
             }
         }
     }

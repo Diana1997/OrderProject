@@ -35,7 +35,7 @@ namespace OrderProject.Controller
         }
         public Patient Get(int id)
         {
-                return db.Patients.Include(p => p.Contact).Include(p => p.Image).First();
+                return db.Patients.Include(p => p.Contact).Include(p => p.Image).FirstOrDefault(x => x.PatientID == id);
         }
         public IList<Patient> Get()
         {

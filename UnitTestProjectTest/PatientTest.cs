@@ -24,7 +24,23 @@ namespace UnitTestProject1
         {
             int id;
             Patient newPatient;
+            int contactId;
+            using (var db = new ApplicationDbContext())
+            {
+                var ctrl = new ContactsController(db);
+                var contact = new Contact
+                {
+                    Firstname = "f",
+                    Secondname = "s",
+                    Lastname = "l",
+                    Gender = Gender.Femail,
+                    Birthday = DateTime.Now,
+                };
 
+                contactId = ctrl.Create(contact);
+                var contactRes = ctrl.Get(contactId);
+                Assert.IsNotNull(contact);
+            }
             // creation
             using (var db = new ApplicationDbContext())
             {
@@ -33,25 +49,19 @@ namespace UnitTestProject1
                 newPatient = new Patient
                 {
                     CardNumber = 777,
-                    ContactID = 1,
+                    ContactID = contactId,
                     PatientStatus = PatientStatus.InTheService,
                     CreationDate = DateTime.Now,
-                    ImageID = 1,
                     DateTimeNextVisit = DateTime.Now,
-                    //Contact = new Contact { Firstname = "Test" }
                 };
 
-               // newPatient.Visits.Add(new Visit { Comment = "comment" });
 
                 id = ctrl.Create(newPatient);
 
-                // test results
                 var patient = ctrl.Get(id);
 
                 Assert.IsNotNull(patient);
                 Assert.AreEqual(777, patient.CardNumber);
-                Assert.AreEqual("Test", patient.Contact.Firstname);
-                // check that no visit is loadedd (leasy loading)
                 Assert.AreEqual(0, patient.Visits.Count);
             }
 
@@ -60,9 +70,16 @@ namespace UnitTestProject1
             {
                 var ctrl = new PatientsController(db);
 
-                newPatient.PatientID = id;
-                newPatient.ImageID = 2;
-                newPatient.Contact.Firstname = "Test2";
+                newPatient = new Patient
+                {
+                    PatientID = id,
+                    CardNumber = 777,
+                    ContactID = contactId,
+                    PatientStatus = PatientStatus.InTheService,
+                    CreationDate = DateTime.Now,
+                    DateTimeNextVisit = DateTime.Now,
+                    //Contact = new Contact { Firstname = "Test" }
+                };
                 ctrl.Edit(newPatient);
 
                 // check results
@@ -70,8 +87,6 @@ namespace UnitTestProject1
 
                 Assert.IsNotNull(patient);
                 Assert.AreEqual(777, patient.CardNumber);
-                Assert.AreEqual(2, patient.ImageID);
-                Assert.AreEqual("Test2", patient.Contact.Firstname);
             }
 
             // deleting

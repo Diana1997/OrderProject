@@ -35,7 +35,7 @@ namespace OrderProject.Controller
         }
         public User Get(int id)
         {
-            return db.Users.Include(u => u.Contact).Include(u => u.Diagnostic).First();
+            return db.Users.Include(u => u.Contact).Include(u => u.Diagnostic).FirstOrDefault(x => x.UserID == id);
         }
         public IList<User> Get()
         {

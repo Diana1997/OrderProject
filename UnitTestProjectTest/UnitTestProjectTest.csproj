@@ -55,9 +55,23 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommentOnTheVisitTest.cs" />
+    <Compile Include="ContactTest.cs" />
+    <Compile Include="DiagnosticsTest.cs" />
+    <Compile Include="FieldOptionTest.cs" />
+    <Compile Include="HairSizeSettingsTest.cs" />
     <Compile Include="HairTest.cs" />
+    <Compile Include="ImageTest.cs" />
+    <Compile Include="LensTest.cs" />
     <Compile Include="PatientTest.cs" />
+    <Compile Include="PictureTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportFieldTest.cs" />
+    <Compile Include="ResearchTest.cs" />
+    <Compile Include="SettingsTest.cs" />
+    <Compile Include="StatisticalSettingsTest.cs" />
+    <Compile Include="UserTest.cs" />
+    <Compile Include="VisitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

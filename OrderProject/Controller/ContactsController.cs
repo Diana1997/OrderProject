@@ -35,8 +35,7 @@ namespace OrderProject.Controller
         }
         public Contact Get(int id)
         {
-            Contact contact = db.Contacts.Find(id);
-            return contact;
+            return  db.Contacts.Find(id);
         }
         public IList<Contact> Get()
         {
